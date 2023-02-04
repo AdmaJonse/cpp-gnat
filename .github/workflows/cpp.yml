@@ -14,14 +14,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build and push development environment
-        run: docker build --target=development --ssh=default --network=host --tag=ghcr.io/admajonse/development:${{ github.head_ref }}.${{ github.sha }} .
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: ghcr.io/admajonse/cpp-gnat:${{ github.head_ref }}.${{ github.sha }}
 
   build:
     runs-on: ubuntu-latest
     needs: dev-environment
     container: 
-      image: ghcr.io/admajonse/development:${{ github.head_ref }}.${{ github.sha }}
+      image: ghcr.io/admajonse/cpp-gnat:${{ github.head_ref }}.${{ github.sha }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
