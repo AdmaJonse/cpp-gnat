@@ -1,15 +1,20 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "generic/ubuntu2204"
-  config.vm.base_address = "192.168.1.253"
   config.vm.synced_folder "./", "/vagrant"
+
+  config.vm.provider "docker" do |docker|
+    docker.image = "ghcr.io/admajonse/development:main"
+    docker.has_ssh = true
+  end
+
+  config.ssh.username = 'vagrant'
+  config.ssh.password = 'vagrant'
+  config.ssh.insert_key = true
   config.ssh.forward_agent = true
+  config.ssh.forward_x11 = true
 
   config.vm.provision "ansible_local" do |ansible|
-    ansible.playbook = "/vagrant/provision/playbook.yml"
+    ansible.playbook = "/vagrant/provisioning/playbook.yml"
   end
 
 end
