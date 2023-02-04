@@ -16,8 +16,8 @@ jobs:
 
       - name: Build and push development environment
         run: |
-          - docker build --target=development --ssh=default --network=host --tag=ghcr.io/admajonse/development:${CI_COMMIT_SHA} .
-          - docker push ghcr.io/admajonse/development:${CI_COMMIT_SHA}
+          docker build --target=development --ssh=default --network=host --tag=ghcr.io/admajonse/development:${CI_COMMIT_SHA} .
+          docker push ghcr.io/admajonse/development:${CI_COMMIT_SHA}
 
   build:
     runs-on: ubuntu-latest
