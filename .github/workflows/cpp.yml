@@ -1,0 +1,25 @@
+name: C++ (GNAT)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Re-synchronize package indices
+      run: sudo apt-get update
+
+    - name: Set up GNAT toolchain
+      run: sudo apt-get -y install gnat gprbuild
+
+    - name: Build
+      run: gprbuild -j0 -p service.gpr
