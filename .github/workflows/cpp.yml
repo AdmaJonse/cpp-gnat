@@ -7,10 +7,22 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
 
+  dev-environment:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Build and push development environment
+        run: |
+          - docker build --target=development --ssh=default --network=host --tag=ghcr.io/admajonse/development:${CI_COMMIT_SHA} .
+          - docker push ghcr.io/admajonse/development:${CI_COMMIT_SHA}
+
+  build:
+    runs-on: ubuntu-latest
+    container: 
+      image: ghcr.io/admajonse/development:${CI_COMMIT_SHA}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -23,3 +35,6 @@ jobs:
 
     - name: Build
       run: gprbuild -j0 -p service.gpr
+
+    - name: Unit Tests
+      run: make unit-tests
