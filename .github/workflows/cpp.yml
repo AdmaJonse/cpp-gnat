@@ -29,13 +29,12 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ghcr.io/admajonse/cpp-gnat
-          tags: type=sha
+          tags: type=sha,enable=true,prefix=,suffix=,format=long
 
       - name: Build and push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           push: true
-          registry: ghcr.io
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
