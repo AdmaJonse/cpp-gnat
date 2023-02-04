@@ -28,7 +28,10 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          registry: ghcr.io
           tags: admajonse/cpp-gnat:${{ github.sha }}
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
   build:
     needs: dev-environment
