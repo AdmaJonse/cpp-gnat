@@ -1,3 +1,6 @@
 .vagrant
 bin
 obj
+provisioning/roles
+test/bin
+test/obj

@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_x11 = true
 
   config.vm.provision "ansible_local" do |ansible|
+    ansible.galaxy_role_file = "/vagrant/provisioning/requirements.yml"
+    ansible.galaxy_roles_path = "/vagrant/provisioning/roles"
     ansible.playbook = "/vagrant/provisioning/playbook.yml"
   end
 

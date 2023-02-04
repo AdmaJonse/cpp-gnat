@@ -1,63 +1,9 @@
 ---
 
 - hosts: all
-  vars:
-    gnat_download_url: https://community.download.adacore.com/v1/f3a99d283f7b3d07293b2e1d07de00e31e332325?filename=gnat-2021-20210519-x86_64-linux-bin
-    gnat_download_path: /tmp/gnat-2021-x86_64-linux-bin
-    gnat_install_repo: https://github.com/AdaCore/gnat_community_install_script.git
-    gnat_install_path: /tmp/gnat-community-install
-    gnat_local_path: "/opt/gnat"
   connection: ssh
   gather_facts: yes
 
-  tasks:
-
-    - name: Install prerequisites with apt
-      apt:
-        pkg:
-          - make
-          - libfontconfig
-          - libx11-dev
-          - xserver-xorg-dev
-          - xorg-dev
-      become: yes
-
-    - name: Check if the GNAT directory already exists
-      stat:
-        path: "{{ gnat_local_path }}"
-      register: gnat_dir
-  
-    - name: Download GNAT Community resources
-      get_url: 
-        url: "{{ gnat_download_url }}"
-        dest: "{{ gnat_download_path }}"
-      when: not gnat_dir.stat.exists
-
-    - name: Ensure GNAT directory exists
-      file:
-        path: "{{ gnat_local_path }}"
-        state: directory
-        owner: vagrant
-        group: vagrant
-      when: not gnat_dir.stat.exists
-      become: yes
-
-    - name: Clone GNAT Community installation scripts
-      git:
-        repo: "{{ gnat_install_repo }}"
-        dest: "{{ gnat_install_path }}"
-        accept_hostkey: yes
-      when: not gnat_dir.stat.exists
-
-    - name: Install GNAT Community using installation script
-      shell:
-        cmd: "./install_package.sh {{ gnat_download_path }} {{ gnat_local_path }}"
-        chdir: "{{ gnat_install_path }}"
-      when: not gnat_dir.stat.exists
-      become: yes
-
-    - name: Add GNAT binaries to PATH
-      copy:
-        dest: /etc/profile.d/gnat.sh
-        content: 'PATH={{ gnat_local_path }}/bin:$PATH'
-      become: yes
+  roles:
+    - name: gnat
+    - name: cppunit

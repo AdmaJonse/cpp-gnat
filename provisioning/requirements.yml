@@ -1,0 +1,7 @@
+---
+
+- name: cppunit
+  src: https://github.com/AdmaJonse/ansible-role-cppunit.git
+
+- name: gnat
+  src: https://github.com/AdmaJonse/ansible-role-gnat.git
