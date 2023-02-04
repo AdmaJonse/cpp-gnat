@@ -54,6 +54,15 @@ jobs:
     - name: Print PATH
       run: echo $PATH
 
+    - name: list /opt
+      run: ls /opt
+
+    - name: list /opt/gnat
+      run: ls /opt/gnat
+
+    - name: list /etc/profile.d
+      run: ls /etc/profile.d
+
     - name: check gprbuild
       run: which gprbuild
 
