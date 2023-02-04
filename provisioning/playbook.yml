@@ -18,7 +18,7 @@
           - make
           - libfontconfig
           - libx11-dev
-          - xserver-xorg-dev 
+          - xserver-xorg-dev
           - xorg-dev
       become: yes
   
