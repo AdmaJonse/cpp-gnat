@@ -67,7 +67,7 @@ jobs:
       run: which gprbuild
 
     - name: Build
-      run: make build
+      run: bash -lc "make build"
 
     - name: Unit Tests
-      run: make unit-tests
+      run: bash -lc "make unit-tests"
