@@ -6,3 +6,5 @@
 
   roles:
     - name: cppunit
+      environment:
+        PATH: "/opt/gnat/bin:{{ ansible_end.PATH }}"
