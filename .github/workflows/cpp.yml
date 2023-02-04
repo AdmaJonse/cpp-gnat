@@ -27,8 +27,6 @@ jobs:
           context: .
           file: ./Dockerfile
           tags: ghcr.io/admajonse/cpp-gnat:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   build:
     runs-on: ubuntu-latest
