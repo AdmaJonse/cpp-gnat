@@ -50,7 +50,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build
-      run: gprbuild -j0 -p service.gpr
+      run: make build
 
     - name: Unit Tests
       run: make unit-tests
